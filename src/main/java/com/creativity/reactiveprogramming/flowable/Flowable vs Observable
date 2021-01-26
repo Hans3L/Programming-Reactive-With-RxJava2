@@ -1,0 +1,38 @@
+Es fundamental saber cuándo usar Flowable en lugar de  Observable. En general, los beneficios que
+ofrece  Flowable son un uso más reducido de la memoria (evitando OutOfMemoryErrorexcepciones) y la
+prevención de  MissingBackpressureException. Esto último puede ocurrir si las operaciones ejercen
+una contrapresión contra una fuente, pero la fuente no tiene un protocolo de contrapresión en su
+implementación. Sin embargo, la desventaja Flowablees que agrega gastos generales y es posible
+que no funcione tan rápido como un Observable.
+
+Utilice un Observable si ...
+
+* Espera pocas emisiones durante la vida útil de la Observablesuscripción (menos de 1000) o las
+emisiones son intermitentes y distantes. Si espera que solo un goteo de emisiones provenga de
+una fuente, funcionará Observablebien y tendrá menos gastos generales. Pero cuando se trata
+de grandes cantidades de datos y se realizan operaciones complejas con ellos, es probable
+que desee utilizar un archivo Flowable.
+* Su procesamiento de datos es estrictamente sincrónico y tiene un uso limitado de concurrencia.
+ Esto incluye el uso simple de subscribeOn()al comienzo de una Observablecadena porque el proceso
+ todavía está operando en un solo hilo y emitiendo elementos de forma síncrona en sentido
+ descendente. Sin embargo, cuando se empieza a pasar con velocidad y la combinación de
+ diferentes corrientes en diferentes hilos, PARALLELIZE u operadores de uso, tales como
+ observeOn(), interval()y delay(), a su aplicación ya no es sincrónico y que podría ser
+ mejor usar una Flowable.
+* Desea emitir eventos de interfaz de usuario, como clics de botones, ListViewselecciones u otras
+entradas de usuario en Android, JavaFX o Swing. Dado que a los usuarios no se les puede decir
+mediante programación que reduzcan la velocidad, rara vez existe la oportunidad de usar un Flowable.
+Para hacer frente a las entradas rápidas de los usuarios, es probable que sea mejor utilizar los
+operadores discutidos enCapítulo 7 , Conmutación, limitación, creación de ventanas y almacenamiento
+en búfer .
+
+Utilice un Flowable si ...
+
+* Se trata de más de 10.000 elementos y existe la posibilidad de que la fuente genere emisiones de
+forma regulada. Esto es especialmente cierto cuando la fuente es asincrónica y envía grandes
+cantidades de datos.
+* Desea emitir desde operaciones de E / S que admiten el bloqueo mientras devuelve resultados,
+que es la cantidad de fuentes de E / S que funcionan. Las fuentes de datos que iteran registros,
+como líneas de archivos o ResultSeten JDBC, son especialmente fáciles de controlar porque la
+iteración puede pausar y reanudar según sea necesario. Las API de red y de transmisión que pueden
+solicitar una cierta cantidad de resultados devueltos también se pueden contrarrestar fácilmente.
