@@ -1,0 +1,2 @@
+Existe una subcategoría de operadores reductores que evalúan el resultado a un boolean valor y
+devuelven un Single<Boolean>  objeto.
