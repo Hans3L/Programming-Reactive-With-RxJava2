@@ -1,0 +1,5 @@
+Es probable que tenga momentos en los que necesite tomar una serie de valores emitidos y
+agregarlos en un solo valor (generalmente emitidos a través de un Single).
+Cubriremos algunos operadores que logran esto. Tenga en cuenta que casi todos estos
+operadores solo funcionan en una Observable llamada finita onComplete() porque, por lo
+general, solo podemos agregar conjuntos de datos finitos.
