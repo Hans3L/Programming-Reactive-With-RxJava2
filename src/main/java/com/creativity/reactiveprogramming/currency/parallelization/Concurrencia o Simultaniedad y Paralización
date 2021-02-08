@@ -1,0 +1,9 @@
+La necesidad de concurrencia ha crecido rápidamente en los últimos 10 años y se ha convertido
+en una necesidad para todos los programadores profesionales de Java. La concurrencia
+(también llamada multiproceso ) es esencialmente multitarea , en la que tiene varios
+procesos ejecutándose al mismo tiempo. Si desea utilizar completamente la potencia informática
+de su hardware (ya sea un teléfono, un servidor, una computadora portátil o una computadora
+de escritorio), debe aprender a utilizar múltiples subprocesos y aprovechar la concurrencia.
+Afortunadamente, RxJava hace que la concurrencia sea mucho más fácil y segura de lograr.
+
+
