@@ -1,0 +1,21 @@
+Cada valor predeterminado Scheduler se crea de forma perezosa. El Scheduler
+creado por el método computation(), io(), newThread(), single(), o trampoline()
+de fábrica se puede eliminar en cualquier momento llamando a su método shutdown().
+Alternativamente, todos los programadores creados se pueden eliminar llamando Schedulers.shutdown().
+Esto detiene todos sus hilos y prohíbe la entrada de nuevas tareas y arroja un error si intenta
+lo contrario. También puede llamar a su método start() o Schedulersers.start() reinicializar los
+programadores para que puedan aceptar tareas nuevamente.
+
+En entornos de aplicaciones móviles y de escritorio, no debería encontrarse con muchos casos en
+los que tenga que iniciar y detener los programadores. Sin embargo, en el lado del servidor,
+las aplicaciones basadas en Java EE (por ejemplo, servlets) pueden descargarse y recargarse y
+usar un cargador de clases diferente, lo que hace que las Scheduler instancias antiguas se filtren.
+ Para evitar que esto ocurra, Servlet debe apagar el Schedulers en su método destroy().
+
+NOTA:
+Administre el ciclo de vida de los programadores solo si es absolutamente necesario. Es mejor
+dejar que los programadores administren dinámicamente el uso de los recursos y mantenerlos
+inicializados y disponibles para que las tareas se puedan ejecutar rápidamente en cualquier
+momento. Tenga en cuenta que es mejor asegurarse de que todas las tareas pendientes se completen
+o eliminen antes de cerrar los programadores, o puede dejar las secuencias de procesamiento
+en un estado inconsistente.
