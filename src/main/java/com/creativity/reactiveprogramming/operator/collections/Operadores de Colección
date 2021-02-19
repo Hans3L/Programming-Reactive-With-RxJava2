@@ -1,0 +1,9 @@
+Un operador de colección acumula todas las emisiones en una colección como un List o Map y luego devuelve
+toda la colección como un valor único. Es otra forma de operador reductor, ya que agrega elementos
+emitidos en uno solo. Dedicaremos un apartado a cada uno de los operadores de colección y varios
+ejemplos ya que su uso es algo más complejo que los ejemplos anteriores.
+
+NOTA: Tenga en cuenta que debe evitar reducir un flujo de elementos a colecciones por el simple hecho
+de hacerlo. Puede socavar los beneficios de la programación reactiva en la que los elementos se procesan
+en una secuencia de principio a fin, uno por uno. Solo desea agregar los elementos emitidos en una
+colección cuando necesite agruparlos lógicamente de alguna manera.
