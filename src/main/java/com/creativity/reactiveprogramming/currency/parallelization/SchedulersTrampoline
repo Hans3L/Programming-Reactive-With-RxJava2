@@ -1,0 +1,8 @@
+Un Scheduler creado por Schedulers.trampoline() es interesante. Lo más probable
+ es que no lo use con frecuencia, ya que se usa principalmente en la implementación
+  interna de RxJava. Su patrón también se toma prestado para programadores de UI
+  como RxJavaFX y RxAndroid. Es como la programación predeterminada en el hilo
+  inmediato, pero evita los casos de programación recursiva en los que una tarea
+   programa una tarea mientras está en el mismo hilo. En lugar de causar un error
+   de desbordamiento de pila, permite que la tarea actual termine primero y ejecute
+    esa nueva tarea programada solo después.
