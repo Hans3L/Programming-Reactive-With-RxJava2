@@ -1,0 +1,14 @@
+Vio diferentes programadores disponibles en RxJava, así como los disponibles en otras bibliotecas como RxJavaFX
+y RxAndroid. El operador subscribeOn() está acostumbrado a sugerir al flujo ascendente de una cadena Observable
+sobre qué Scheduler impulsar las emisiones. observeOn() cambia las emisiones a un Scheduler punto diferente en
+ese punto de la cadena Observable y las usa en sentido Scheduler descendente. Puede utilizar estos dos operadores
+junto con flatMap() para crear potentes patrones de paralelización de modo que pueda utilizar completamente
+la potencia de su CPU múltiple. Finalmente cubrimos unsubscribeOn(), lo que nos ayuda a especificar una Scheduler
+para deshacerse de las operaciones, evitando sutiles bloqueos en los hilos que queremos mantener libres y
+disponibles incluso si llaman al método dispose().
+
+Es importante tener en cuenta que cuando comienza a trabajar con la concurrencia, debe desconfiar de la
+cantidad de datos que está haciendo malabares entre los hilos ahora. Una gran cantidad de datos pueden
+ponerse en cola en su cadena Observable, y algunos subprocesos producen trabajo más rápido que otros
+subprocesos pueden consumirlos. Cuando se trata de más de 10.000 elementos, debe utilizar un Flowable para
+evitar problemas de memoria.
