@@ -1,0 +1,16 @@
+La paralelización, también llamada paralelismo o computación paralela , es un término amplio
+que puede usarse para cualquier actividad concurrente (incluido lo que cubrimos). Pero para
+los propósitos de RxJava, definámoslo como procesar múltiples emisiones a la vez para un determinado
+Observable. Si tenemos 1,000 emisiones para procesar en una cadena Observable determinada , podríamos
+hacer el trabajo más rápido si procesamos ocho emisiones a la vez en lugar de una. Si recuerda, el
+contrato Observable dicta que las emisiones deben empujarse en serie por una cadena Observable y
+nunca competir entre sí debido a la concurrencia. De hecho, empujar ocho emisiones en una Observable
+cadena a la vez sería francamente catastrófico y causaría estragos.
+
+Esto parece ponernos en desacuerdo con lo que queremos lograr, pero afortunadamente, RxJava le brinda
+operadores suficientes y herramientas para ser inteligente. Si bien no puede enviar elementos simultáneamente
+en el mismo Observable, se le permite tener varios observables ejecutándose a la vez, cada uno con su propio
+hilo único que empuja elementos. Como hemos hecho a lo largo de este capítulo, creamos varios observables
+que se ejecutan en diferentes subprocesos/programadores e incluso los combinamos. De hecho, ya tiene las
+herramientas y el secreto para lograr la paralelización está en el operador flatMap(), que es, de hecho, un
+poderoso operador de concurrencia.
