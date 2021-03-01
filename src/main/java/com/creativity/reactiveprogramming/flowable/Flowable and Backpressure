@@ -1,0 +1,13 @@
+Anteriormente, aprendimos acerca de diferentes operadores que interceptan emisiones que disparan
+rápidamente y las consolidan u omiten para disminuir la cantidad de emisiones que pasan flujo abajo(downstream).
+Otra manera, posiblemente mejor, de abordar el problema de cuándo una fuente está produciendo emisiones
+más rápido de lo que los flujos abajo(downstream) pueden procesarlas es hacer que de manera proactiva la fuente
+se desacelere y emita a un ritmo que esté de acuerdo con las operaciones downstream. Esta última
+técnica es especialmente importante cuando no queremos perder ninguna de las emisiones pero no queremos
+consolidarlas o no podemos proporcionar un búfer lo suficientemente grande para mantener todas las
+emisiones en exceso en la cola.
+
+El envío de la solicitud para reducir la velocidad a la fuente  se conoce como contrapresión o control
+de flujo, y se puede habilitar utilizando un Flowable en lugar de un Observable. Este será el enfoque
+principal de este capítulo. Aprenderá cuándo, bajo qué circunstancias y cómo aprovechar la contrapresión
+en su aplicación.
