@@ -1,0 +1,22 @@
+El operador observeOn() viene con matices a tener en cuenta, especialmente cuando se
+trata de implicaciones de rendimiento debido a la falta de contrapresión.
+Digamos que tiene una cadena de operadores Observable con dos conjuntos de operaciones,
+Operación A y Operación B. No nos preocupemos qué operadores está usando cada uno. Si no
+tiene ninguno observeOn() entre ellos, la operación pasará las emisiones estrictamente una
+a la vez desde la fuente a la Operación A, luego a la Operación B y finalmente a la Observer.
+Incluso con subscribeOn(), la fuente no pasará la siguiente emisión por la cadena hasta que
+la actual pase hasta el Observer.
+Esto cambia cuando introduce una observeOn(), y digamos que la ponemos entre la Operación A
+y la Operación B. Después de que la Operación A le entrega una emisión al operador observeOn(),
+inmediatamente comenzará la siguiente emisión y no esperará a que termine la actual downstream,
+incluyendo la Operación B y el Observer. Esto significa que la fuente y la Operación
+A pueden producir emisiones más rápido que la Operación B y Observer pueden consumirlas . Este
+es un escenario clásico de productor / consumidor en el que el productor produce emisiones más
+rápido de lo que el consumidor puede consumirlas. Si este es el caso, las emisiones no
+procesadas se pondrán en cola observeOn() hasta que el downstream pueda procesarlas. Pero si
+tiene muchas emisiones, puede tener problemas de memoria.
+Es por eso que, cuando tiene un flujo de 10,000 emisiones o más, debe usar un Flowable(que
+admite contrapresión) en lugar de un Observable. La contrapresión se comunica upstream
+hasta la fuente para reducir la velocidad y solo producir una cantidad determinada de emisiones
+a la vez. Restaura la solicitud de emisiones basada en extracción incluso cuando se introducen
+operaciones de simultaneidad complejas.
