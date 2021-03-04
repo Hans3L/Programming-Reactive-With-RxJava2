@@ -1,0 +1,14 @@
+ContrapresiónEstrategia	Descripción
+MISSING	Básicamente resulta en ninguna implementación de contrapresión. El flujo descendente
+        debe lidiar con el desbordamiento de contrapresión, que puede ser útil cuando se usa con
+        operadores onBackpressureXXX(), que cubriremos más adelante en este capítulo en la sección
+        Uso de operadores onBackpressureXXX().
+ERROR	Genera  MissingBackpressureException el momento en que el río abajo no puede seguir
+        el ritmo de la fuente.
+BUFFER	Pone en cola las emisiones en una cola ilimitada hasta que el flujo descendente
+        puede consumirlas, pero puede provocar un error  OutOfMemoryError si la cola se vuelve
+        demasiado grande.
+DROP	Si el flujo descendente no puede mantenerse al día, esto ignora las emisiones ascendentes
+        y no las pone en cola mientras el flujo descendente está ocupado.
+LATEST	Esto mantiene solo la última emisión hasta que el flujo descendente esté listo para
+        recibirla.
